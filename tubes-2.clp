@@ -16,76 +16,173 @@
     (assert (mean-concave-points  (read)))
 )
 
+( defrule rule1-a
+    (mean-texture ?mean-texture)
+    (test (<= ?mean-texture 28.79))
+    =>
+    (assert (result 0))
+)
+
+( defrule rule1-b
+    (mean-texture ?mean-texture)
+    (test (> ?mean-texture 28.79))
+    =>
+    (assert (result 1))
+)
+
+( defrule rule2-a
+    (mean-radius ?mean-radius)
+    (worst-area ?worst-area)
+    (test (<= ?mean-radius 13.45))
+    (test (> ?worst-area 641.6))
+    =>
+    (printout t crlf "Mean texture: ")
+    (assert (mean-texture (read)))
+)
+
+( defrule rule2-b
+    (mean-radius ?mean-radius)
+    (worst-area ?worst-area)
+    (test (> ?mean-radius 13.45))
+    (test (> ?worst-area 641.6))
+    =>
+    (assert (result 1))
+)
+
+( defrule rule3-a
+    (worst-area ?worst-area)
+    (test (<= ?worst-area 641.6))
+    =>
+    (assert (result 1))
+)
+
+( defrule rule3-b
+    (worst-area ?worst-area)
+    (test (> ?worst-area 641.6))
+    =>
+    (printout t crlf "Mean radius: ")
+    (assert (mean-radius (read)))
+)
+
+( defrule rule4-a
+    (worst-texture ?worst-texture)
+    (radius-error ?radius-error)
+    (test (<= ?worst-texture 30.15))
+    (test (<= ?radius-error 0.63))
+    =>
+    (assert (result 1))
+)
+
+( defrule rule4-b
+    (worst-texture ?worst-texture)
+    (radius-error ?radius-error)
+    (test (> ?worst-texture 30.15))
+    (test (<= ?radius-error 0.63))
+    =>
+    (printout t crlf "Worst area: ")
+    (assert (worst-area (read)))
+)
+
+( defrule rule5-a
+    (mean-smoothness ?mean-smoothness)
+    (test (<= ?mean-smoothness 0.09))
+    =>
+    (assert (result 1))
+)
+
+( defrule rule5-b
+    (mean-smoothness ?mean-smoothness)
+    (test (> ?mean-smoothness 0.09))
+    =>
+    (assert (result 0))
+)
+
+( defrule rule6-a
+    (radius-error ?radius-error)
+    (test (<= ?radius-error 0.63))
+    =>
+    (printout t crlf "Worst texture: ")
+    (assert (worst-texture (read)))
+)
+
+( defrule rule6-b
+    (radius-error ?radius-error)
+    (test (> ?radius-error 0.63))
+    =>
+    (printout t crlf "Mean smoothness: ")
+    (assert (mean-smoothness (read)))
+)
+
 ( defrule rule10-b
     (mean-concave-points ?mean-concave-points)
     (test (> ?mean-concave-points 0.05))
     =>
-    (printout t crlf "Worse-perimeter: ")
-    (assert (worse-perimeter (read)))
+    (printout t crlf "Worst-perimeter: ")
+    (assert (worst-perimeter (read)))
 )
 
 (defrule rule11-a
     (mean-concave-points ?mean-concave-points)
-    (worse-perimeter ?worse-perimeter)
+    (worst-perimeter ?worst-perimeter)
     (test (> ?mean-concave-points 0.05))
-    (test (<= ?worse-perimeter 114.45))
+    (test (<= ?worst-perimeter 114.45))
 =>
-    (printout t crlf "Worse-texture: ")
-    (assert (worse-texture (read)))
+    (printout t crlf "Worst-texture: ")
+    (assert (worst-texture (read)))
 )
 
 (defrule rule11-b
     (mean-concave-points ?mean-concave-points)
-    (worse-perimeter ?worse-perimeter)
+    (worst-perimeter ?worst-perimeter)
     (test (> ?mean-concave-points 0.05))
-    (test (> ?worse-perimeter 114.45))
+    (test (> ?worst-perimeter 114.45))
 =>
     (assert (result 0))
 )
 
 (defrule rule12-a
-    (worse-perimeter ?worse-perimeter)
-    (worse-texture ?worse-texture)
-    (test (<= ?worse-perimeter 114.45))
-    (test (<= ?worse-texture 25.65))
+    (worst-perimeter ?worst-perimeter)
+    (worst-texture ?worst-texture)
+    (test (<= ?worst-perimeter 114.45))
+    (test (<= ?worst-texture 25.65))
 =>
-    (printout t crlf "Worse-concave-points: ")
-    (assert (worse-concave-points (read)))
+    (printout t crlf "Worst-concave-points: ")
+    (assert (worst-concave-points (read)))
 )
 
 (defrule rule12-b
-    (worse-perimeter ?worse-perimeter)
-    (worse-texture ?worse-texture)
-    (test (<= ?worse-perimeter 114.45))
-    (test (> ?worse-texture 25.65))
+    (worst-perimeter ?worst-perimeter)
+    (worst-texture ?worst-texture)
+    (test (<= ?worst-perimeter 114.45))
+    (test (> ?worst-texture 25.65))
 =>
     (printout t crlf "perimeter-error: ")
     (assert (perimeter-error (read)))
 )
 
 (defrule rule13-a
-    (worse-texture ?worse-texture)
-    (worse-concave-points ?worse-concave-points)
-    (test (<= ?worse-texture 25.65))
-    (test (<= ?worse-concave-points 0.17))
+    (worst-texture ?worst-texture)
+    (worst-concave-points ?worst-concave-points)
+    (test (<= ?worst-texture 25.65))
+    (test (<= ?worst-concave-points 0.17))
 =>
     (assert (result 1))
 )
 
 (defrule rule13-b
-    (worse-texture ?worse-texture)
-    (worse-concave-points ?worse-concave-points)
-    (test (<= ?worse-texture 25.65))
-    (test (> ?worse-concave-points 0.17))
+    (worst-texture ?worst-texture)
+    (worst-concave-points ?worst-concave-points)
+    (test (<= ?worst-texture 25.65))
+    (test (> ?worst-concave-points 0.17))
 =>
     (assert (result 0))
 )
 
 
 (defrule rule14-a
-    (worse-texture ?worse-texture)
+    (worst-texture ?worst-texture)
     (perimeter-error ?perimeter-error)
-    (test (> ?worse-texture 25.65))
+    (test (> ?worst-texture 25.65))
     (test (<= ?perimeter-error 1.56))
 =>
     (printout t crlf "Mean-radius: ")
@@ -93,9 +190,9 @@
 )
 
 (defrule rule14-b
-    (worse-texture ?worse-texture)
+    (worst-texture ?worst-texture)
     (perimeter-error ?perimeter-error)
-    (test (> ?worse-texture 25.65))
+    (test (> ?worst-texture 25.65))
     (test (> ?perimeter-error 1.56))
 =>
     (assert (result 0))
@@ -123,6 +220,7 @@
 ?result <- (result 1)
 =>
 (retract ?result)
+(reset)
 (printout t "Hasil Prediksi = Terprediksi Kanker Payudara")
 )
 
@@ -130,6 +228,7 @@
 ?result <- (result 0)
 =>
 (retract ?result)
+(reset)
 (printout t "Hasil Prediksi = Terprediksi Tidak Kanker Payudara")
 )
 
