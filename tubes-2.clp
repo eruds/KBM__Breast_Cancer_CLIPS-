@@ -15,6 +15,60 @@
     (printout t crlf "Mean concave points: ")
     (assert (mean-concave-points  (read)))
 )
+(defrule rule6
+    (worst-radius ?worst-radius)
+    (test (<= ?worst-radius 16.83))
+    =>
+    (printout t crlf "Radius-error: ")
+    (assert (radius-error (read)))
+)
+
+(defrule rule7
+    (mean-texture ?mean-texture)
+    (test (> ?mean-texture 16.19))
+    =>
+    (printout t crlf "Concave points error: ")
+    (assert (concave-points-error (read)))
+)
+
+(defrule rule7-a
+    (concave-points-error ?concave-points-error)
+    (test (<= ?concave-points-error 0.01))
+    =>    
+    (assert (result 0))
+)
+
+(defrule rule7-b
+    (concave-points-error ?concave-points-error)
+    (test (> ?concave-points-error 0.01))
+    =>    
+    (assert (result 1))
+)
+
+(defrule rule8
+    (worst-radius ?worst-radius)
+    (test (> ?worst-radius 16.83))
+    =>
+    (printout t crlf "Mean texture: ")
+    (assert (mean-texture (read)))
+)
+
+(defrule rule8-a
+    (mean-texture ?mean-texture)
+    (test (<= ?mean-texture 16.83))
+    =>    
+    (assert (result 1))
+)
+
+(defrule rule9
+    (mean-concave-points ?mean-concave-points)
+    (test (<= ?mean-concave-points 0.05))
+    =>
+    (printout t crlf "Worst-radius: ")
+    (assert (worst-radius (read)))
+)
+
+
 
 ( defrule rule1-a
     (mean-texture ?mean-texture)
@@ -220,15 +274,13 @@
 ?result <- (result 1)
 =>
 (retract ?result)
-(reset)
-(printout t "Hasil Prediksi = Terprediksi Kanker Payudara")
+(printout t "Hasil Prediksi = Terprediksi Kanker Payudara" crlf)
 )
 
 (defrule negative-cancer
 ?result <- (result 0)
 =>
 (retract ?result)
-(reset)
-(printout t "Hasil Prediksi = Terprediksi Tidak Kanker Payudara")
+(printout t "Hasil Prediksi = Terprediksi Tidak Kanker Payudara" crlf)
 )
 
