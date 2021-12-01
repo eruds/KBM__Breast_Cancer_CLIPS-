@@ -3,19 +3,11 @@
 ; Description: Breast cancer detector
 ; ===================================================
 
-(defrule start
-=>
-(assert (phase start))
-)
-
 (defrule enter-message
-?phase <- (phase start)
 =>
-    (retract ?phase)
     (printout t crlf "Mean concave points: ")
     (assert (mean-concave-points  (read)))
 )
-
 
 ( defrule rule1-a
     (mean-texture ?mean-texture)
@@ -283,6 +275,8 @@
 =>
 (retract ?result)
 (printout t crlf "Hasil Prediksi = Terprediksi Kanker Payudara" crlf)
+(reset)
+(halt)
 )
 
 (defrule negative-cancer
@@ -290,5 +284,7 @@
 =>
 (retract ?result)
 (printout t crlf "Hasil Prediksi = Terprediksi Tidak Kanker Payudara" crlf)
+(reset)
+(halt)
 )
 
