@@ -274,13 +274,13 @@
 ?result <- (result 1)
 =>
 (retract ?result)
-(printout t "Hasil Prediksi = Terprediksi Kanker Payudara" crlf)
+(printout t crlf "Hasil Prediksi = Terprediksi Kanker Payudara" crlf)
 )
 
 (defrule negative-cancer
 ?result <- (result 0)
 =>
 (retract ?result)
-(printout t "Hasil Prediksi = Terprediksi Tidak Kanker Payudara" crlf)
+(printout t crlf "Hasil Prediksi = Terprediksi Tidak Kanker Payudara" crlf)
 )
 
